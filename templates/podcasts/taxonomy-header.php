@@ -12,6 +12,9 @@ if (!defined('ABSPATH')) die('No direct access allowed');
     <div class="row-container">
         <a href="/pods" class="backlink">Back <span>to the Pods</span></a>
         <h1 class="t3d-color-brand t3d-direction-right t3d-length-long">
+            <?php if (\is_tax('wpn_podcast_tag')): ?>
+                <span>Tag:</span>
+            <?php endif ?>
             <?php echo \esc_html(\single_term_title()) ?>
         </h1>
     </div>
