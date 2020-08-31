@@ -29,63 +29,62 @@ main.podcasts {
 		}
 	}
 
-	// Genre features on podcasts landing page
-	&.single .genre-features {
-		.row {
-			padding-top: 1em;
-			padding-bottom: 1.5em;
+}
 
-			&:nth-child(odd) {
-				background-color: #eee;
-			}
+// Genre features on podcasts landing page
+.genre-features {
+	.row {
+		padding-top: 1em;
+		padding-bottom: 1.5em;
 
-			article > header {
-				display: flex;
-				flex-direction: row;
-				align-items: baseline;
-				align-items: last baseline;
-				justify-content: space-between;
+		&:nth-child(odd) {
+			background-color: #eee;
+		}
 
-				text-align: left;
+		article > header {
+			display: flex;
+			flex-direction: row;
+			align-items: baseline;
+			align-items: last baseline;
+			justify-content: space-between;
 
-				a {
-					color: #fff;
-					text-decoration: none;
+			text-align: left;
 
-					&.more {
-						display: inline-block;
-						background: var(--#{$PARENT_PREFIX}-color-highlight);
-						border-radius: .25em;
-						padding: .25em .4em;
-						font-size: 0.8em;
+			a {
+				color: #fff;
+				text-decoration: none;
 
-						white-space: nowrap;
+				&.more {
+					display: inline-block;
+					background-color: var(--#{$PARENT_PREFIX}-color-highlight);
+					border-radius: .25em;
+					padding: .25em .4em;
+					font-size: 0.8em;
 
-						@include phone {
-							font-size: 0.75em;
-						}
+					white-space: nowrap;
 
-						&::before {
-							content: '❯ ';
-						}
+					@include phone {
+						font-size: 0.75em;
+					}
 
-						@include hover {
-							background: var(--#{$PARENT_PREFIX}-color-brand);
-						}
+					&::before {
+						content: '❯ ';
+					}
+
+					@include hover {
+						background-color: var(--#{$PARENT_PREFIX}-color-brand);
 					}
 				}
+			}
 
-				h2 {
-					font-size: 1.75em;
-					line-height: 1.1;
-					margin-right: .5em;
-				}
+			h2 {
+				font-size: 1.75em;
+				line-height: 1.1;
+				margin-right: .5em;
 			}
 		}
 	}
-
 }
-
 
 // in podcast genre features, hide the 5th item on mobile
 @include phone {

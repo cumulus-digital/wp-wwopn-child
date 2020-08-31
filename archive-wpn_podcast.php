@@ -32,33 +32,33 @@ array_walk($genres, function($genre){
 		</div>
 	</div>
 
-	<?php if ($genres): ?>
-		<section class="genre-features">
-			<?php foreach($genres as $genre): ?>
-				<div class="row">
-					<div class="row-container">
-						<article class="genre">
-							<header>
-								<h2 class="t3d-color-highlight t3d-direction-left t3d-length-medium">
-									<a href="<?php echo $genre->link ?>" title="View all <?php echo \esc_attr($genre->name) ?>">
-										<?php echo \esc_html($genre->name) ?>
-									</a>
-								</h2>
-								<a href="<?php echo $genre->link ?>" title="View all <?php echo \esc_attr($genre->name) ?>" class="more">
-									View all
-								</a>
-							</header>
-							<div class="body">
-								<?php echo \do_shortcode('[podcasts-genre id=' . $genre->term_id . ']') ?>
-							</div>
-						</article>
-					</div>
-				</div>
-			<?php endforeach ?>
-		</section>
-	<?php endif ?>
-
 </main>
+
+<?php if ($genres): ?>
+	<section class="genre-features">
+		<?php foreach($genres as $genre): ?>
+			<div class="row">
+				<div class="row-container">
+					<article class="genre">
+						<header>
+							<h2 class="t3d-color-highlight t3d-direction-left t3d-length-medium">
+								<a href="<?php echo $genre->link ?>" title="View all <?php echo \esc_attr($genre->name) ?>">
+									<?php echo \esc_html($genre->name) ?>
+								</a>
+							</h2>
+							<a href="<?php echo $genre->link ?>" title="View all <?php echo \esc_attr($genre->name) ?>" class="more">
+								View all
+							</a>
+						</header>
+						<div class="body">
+							<?php echo \do_shortcode('[podcasts-genre id=' . $genre->term_id . ']') ?>
+						</div>
+					</article>
+				</div>
+			</div>
+		<?php endforeach ?>
+	</section>
+<?php endif ?>
 
 <?php
 \get_footer();
