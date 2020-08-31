@@ -1,0 +1,61 @@
+@import 'bourbon/core/_bourbon';
+
+$PARENT_PREFIX: cmls_base;
+$width-max: 1200px;
+$width-large: 1030px;
+$width-medium: 820px;
+$width-small: 640px;
+
+@mixin phone() {
+	@media (max-width: $width-small) {
+		@content;
+	}
+}
+
+@mixin tablet() {
+	@media (max-width: $width-medium) {
+		@content;
+	}
+}
+
+@mixin desktop() {
+	@media (min-width: $width-medium) {
+		@content;
+	}
+}
+
+@mixin hover() {
+	@media (hover: none) {
+		-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+		&:active {
+			@content;
+		}
+	}
+	@media not all and (hover: none), all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+		&:hover, &:focus {
+			@content
+		}
+	}
+}
+
+@mixin t3d($start, $stop, $after: false, $doStroke: true) {
+	$all: ();
+	@if $doStroke {
+		$all: append($all, -1px -1px var(--t3d-color), comma);
+        $all: append($all,    0 -1px var(--t3d-color), comma);
+        $all: append($all,  1px -1px var(--t3d-color), comma);
+        $all: append($all,  1px    0 var(--t3d-color), comma);
+        $all: append($all,  1px  1px var(--t3d-color), comma);
+        $all: append($all,    0  1px var(--t3d-color), comma);
+        $all: append($all, -1px  1px var(--t3d-color), comma);
+        $all: append($all, -1px    0 var(--t3d-color), comma);
+	}
+	@for $i from $start through $stop {
+		$all: append($all, append(calc( #{$i*0.01em} * var(--t3d-direction)) #{$i*.008em}, var(--t3d-color)), comma);
+		//$all: append($all, append(#{$i*.001em} calc( #{$i*0.01em} * var(--t3d-direction)), var(--t3d-color)), comma);
+	}
+	@if $after {
+		$all: append($all, $after, comma);
+	}
+	text-shadow: $all;
+}

@@ -1,0 +1,29 @@
+.t3d-color-brand {
+	--t3d-color: var(--#{$PARENT_PREFIX}-color-brand);
+}
+.t3d-color-highlight {
+	--t3d-color: var(--#{$PARENT_PREFIX}-color-highlight);
+}
+.t3d-color-accent {
+	--t3d-color: var(--#{$PARENT_PREFIX}-color-accent);
+}
+.t3d-color-black {
+	--t3d-color: #000;
+}
+
+.t3d-direction-left {
+	--t3d-direction: -1;
+}
+.t3d-direction-right {
+	--t3d-direction: 1
+}
+
+.t3d-length-short {
+	@include t3d(1, 8);
+}
+.t3d-length-medium {
+	@include t3d(1, 15);
+}
+.t3d-length-long {
+	@include t3d(1, 26);
+}

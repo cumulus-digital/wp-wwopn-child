@@ -1,0 +1,141 @@
+main.archive.podcasts {
+
+	& > header {
+		background-color: var(--#{$PARENT_PREFIX}-color-highlight);
+		padding: 1em 0;
+		margin: 0 0 1em;
+
+		.row-container {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: space-between;
+		}
+		.backlink {
+			display: inline-block;
+			background-color: #fff;
+			color: var(--#{$PARENT_PREFIX}-color-highlight);
+			border: 2px solid transparent;
+			border-radius: .15em;
+			font-weight: 600;
+			line-height: 1;
+			padding: .75em 1em;
+			margin-right: 1em;
+			text-align: center;
+			text-decoration: none;
+			transition: all .15s;
+
+			&::before {
+				content: '❮ ';
+			}
+
+			@include hover {
+				background-color: transparent;
+				color: #fff;
+				border-color: #fff;
+			}
+
+			@include phone {
+				display: none;
+			}
+		}
+
+		h1 {
+			color: #fff;
+			margin: 0 0 .17em;
+			word-break: break-word;
+
+			@include phone {
+				font-size: 1.75em;
+			}
+		}
+	}
+
+	.tags {
+		display: block;
+		color: rgba(0,0,0,0.3);
+		text-align: center;
+		font-size: 0.75em;
+		margin: 0 0 1em;
+
+		a {
+			background-color: rgba(0,0,0,0.3);
+
+			@include hover {
+				background-color: var(--#{$PARENT_PREFIX}-color-brand);
+			}
+		}
+	}
+
+	.cards {
+		padding: 0;
+
+		& > a {
+			border-radius: .25em;
+			box-shadow: 0 .15em .75em rgba(0,0,0,0.2);
+			overflow: hidden;
+			position: relative;
+	
+			position: relative;
+			z-index: 1;
+
+			transition: transform .1s;
+
+			figure.featured-image {
+				position: relative;
+
+				&::after {
+					content: 'Listen Now!';
+					display: inline-block;
+					background-color: var(--#{$PARENT_PREFIX}-color-highlight);
+					color: #fff;
+					font-weight: bold;
+					padding: .25em .5em;
+					box-shadow: 0 .1em .25em rgba(0,0,0,0.25);
+					white-space: nowrap;
+					position: absolute;
+					left: 50%;
+					bottom: -.5em;
+					transform: translateX(-50%);
+
+					font-size: 0;
+					transition: all .1s;
+
+				}
+			}
+
+			@include hover {
+				box-shadow: 0 .15em 1.5em rgba(0,0,0,0.15);
+				transform: scale(1.02);
+				z-index: 2;
+
+				figure.featured-image {
+					transform: none;
+					
+					&::after {
+						font-size: .8em;
+						@include phone {
+							font-size: .7em;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	article.archive {
+		height: 100%;
+
+		header {
+			display: none;
+		}
+		.body {
+			padding: 1em;
+			font-size: 0.85rem;
+
+			@include phone {
+				font-size: 0.7em;
+			}
+		}
+	}
+}
