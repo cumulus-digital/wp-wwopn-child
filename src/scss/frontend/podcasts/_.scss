@@ -28,6 +28,70 @@ main.podcasts {
 			a { opacity: 0.5 }
 		}
 	}
+
+	// Genre features on podcasts landing page
+	&.single .genre-features {
+		.row {
+			padding-top: 1em;
+			padding-bottom: 1.5em;
+
+			&:nth-child(odd) {
+				background-color: #eee;
+			}
+
+			article > header {
+				display: flex;
+				flex-direction: row;
+				align-items: baseline;
+				align-items: last baseline;
+				justify-content: space-between;
+
+				text-align: left;
+
+				a {
+					color: #fff;
+					text-decoration: none;
+
+					&.more {
+						display: inline-block;
+						background: var(--#{$PARENT_PREFIX}-color-highlight);
+						border-radius: .25em;
+						padding: .25em .4em;
+						font-size: 0.8em;
+
+						white-space: nowrap;
+
+						@include phone {
+							font-size: 0.75em;
+						}
+
+						&::before {
+							content: '❯ ';
+						}
+
+						@include hover {
+							background: var(--#{$PARENT_PREFIX}-color-brand);
+						}
+					}
+				}
+
+				h2 {
+					font-size: 1.75em;
+					line-height: 1.2;
+					margin-right: .5em;
+				}
+			}
+		}
+	}
+
+}
+
+
+// in podcast genre features, hide the 5th item on mobile
+@include phone {
+    .wpn-f-genre li:nth-child(5) {
+        display: none;
+    }
 }
 
 @import '_single';
