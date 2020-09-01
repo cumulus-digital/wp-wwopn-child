@@ -35,32 +35,23 @@ main.podcasts {
 .genre-links {
 	padding: 1em;
 
-	ul, li {
-		list-style: none;
-		margin: 0;
-		padding: 0;
-	}
-	ul {
+	.row-container {
 		display: flex;
-		flex-direction: row;
-		align-items: center;
-		justify-content: space-between;
 		margin: 0 auto;
-		text-align: center;
-
-		@include phone {
-			display: block;
-		}
-	}
-	li {
-		margin: 0 .15em .3em;
+		justify-content: center;
+		flex-wrap: wrap;
 	}
 	a {
-		display: inline-block;
+		display: flex;
+		flex: 1;
+		align-items: center;
+		justify-content: center;
+
 		background-color: var(--#{$PARENT_PREFIX}-color-brand);
 		color: #fff;
 		border-radius: .2em;
 		padding: .75em 1.25em;
+		margin: 0 .25em .5em;
 		text-align: center;
 		text-decoration: none;
 		transition: all .15s;
@@ -76,8 +67,7 @@ main.podcasts {
 }
 .genre-features {
 	.row {
-		padding-top: 1em;
-		padding-bottom: 1.5em;
+		padding: 1em;
 
 		&:nth-child(odd) {
 			background-color: #eee;

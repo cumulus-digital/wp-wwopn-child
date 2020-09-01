@@ -7,8 +7,6 @@
 namespace WWOPN_Child;
 if (!defined('ABSPATH')) die('No direct access allowed');
 
-\query_posts('pagename=pods');
-
 $genres = \get_terms(array(
 	'taxonomy' => 'wpn_podcast_genre',
 	'hide_empty' => true
@@ -36,14 +34,13 @@ array_walk($genres, function($genre){
 
 <?php if ($genres): ?>
 	<nav class="row genre-links">
-		<ul class="row-container">
+		<div class="row-container">
 		<?php foreach($genres as $genre): ?>
-			<li>
-				<a href="<?php echo $genre->link ?>" title="View all <?php echo \esc_attr($genre->name) ?>">
-					<?php echo \esc_html($genre->name) ?>
-				</a>
-			</li>
+			<a href="<?php echo $genre->link ?>" title="View all <?php echo \esc_attr($genre->name) ?>">
+				<?php echo \esc_html($genre->name) ?>
+			</a>
 		<?php endforeach ?>
+		</div>
 	</nav>
 	<section class="genre-features">
 		<?php foreach($genres as $genre): ?>
