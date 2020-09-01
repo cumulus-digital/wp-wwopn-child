@@ -19,11 +19,17 @@
 }
 
 .t3d-length-short {
-	@include t3d(1, 8);
+	&, & p, & h1, & h2, & h3, & h4, & h5 & h6 {
+		@include t3d(1, 10);
+	}
 }
 .t3d-length-medium {
-	@include t3d(1, 15);
+	&, & p, & h1, & h2, & h3, & h4, & h5 & h6 {
+		@include t3d(1, 16);
+	}
 }
 .t3d-length-long {
-	@include t3d(1, 26);
+	&, & p, & h1, & h2, & h3, & h4, & h5 & h6 {
+		@include t3d(1, 28);
+	}
 }

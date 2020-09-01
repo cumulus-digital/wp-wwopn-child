@@ -56,7 +56,7 @@ main.podcasts {
 
 				&.more {
 					display: inline-block;
-					background-color: var(--#{$PARENT_PREFIX}-color-highlight);
+					background-color: var(--#{$PARENT_PREFIX}-color-accent);
 					border-radius: .25em;
 					padding: .25em .4em;
 					font-size: 0.8em;
@@ -81,6 +81,10 @@ main.podcasts {
 				font-size: 1.75em;
 				line-height: 1.1;
 				margin-right: .5em;
+
+				a {
+					color: var(--#{$PARENT_PREFIX}-color-accent);
+				}
 			}
 		}
 	}

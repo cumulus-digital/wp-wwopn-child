@@ -1,224 +1,216 @@
-const { addFilter } = wp.hooks;
-const { createHigherOrderComponent, withState } = wp.compose;
-const { Fragment} = wp.element;
-const { BlockControls, getBlock } = wp.blockEditor;
-const { SelectControl, Toolbar, Button, Popover, ToggleControl } = wp.components;
 import { ReactComponent as Icon } from '../../../static/icons/3d.svg';
+if (wp && wp.blockEditor) {
+	const { addFilter } = wp.hooks;
+	const { createHigherOrderComponent } = wp.compose;
+	const { Fragment} = wp.element;
+	const { InspectorControls } = wp.blockEditor;
+	const { SelectControl, ColorPicker, ColorPalette, PanelBody, ToggleControl } = wp.components;
 
-const affectedBlocks = [
-    'core/paragraph',
-    'core/heading',
-    'kadence/advancedheading',
-];
+	const affectedBlocks = [
+		'core/paragraph',
+		'core/heading',
+		'kadence/advancedheading'
+	];
 
-let colors = [
-    'brand',
-    'highlight',
-    'accent',
-    'black'
-]
+	const t3dOptions = {
+		direction: [ 'left', 'right' ],
+		length: [ 'short', 'medium', 'long' ]
+	};
 
-const tdOptions = {
-    direction: [
-        'left',
-        'right'
-    ],
-    color: [
-        ...colors
-    ],
-    length: [
-        'short',
-        'medium',
-        'long'
-    ]
-};
+	// Add support for extra stuff
+	function handleRegister(settings, name) {
+		if ( ! affectedBlocks.includes(name)) {
+			return settings;
+		}
+		settings.supports = Object.assign({}, settings.supports, {
+			customClassName: true
+		});
+		settings.attributes = Object.assign({}, settings.attributes, {
+			t3dEnabled: {
+				type: 'boolean',
+				default: false
+			},
+			t3dDirection: {
+				'type': 'string',
+				default: t3dOptions.direction[0]
+			},
+			t3dLength: {
+				type: 'string',
+				default: t3dOptions.length[0]
+			},
+			t3dCustomColor: {
+				type: 'string',
+				default: '#000000'
+			},
+		});
+		return settings;
+	}
+	addFilter(
+		'blocks.registerBlockType',
+		'wwopn/t3d/registerBlockType',
+		handleRegister
+	);
 
-const withControl = createHigherOrderComponent((BlockEdit) => {
-    return (props) => {
-        if ( ! affectedBlocks.includes(props.name)) {
-            return (<BlockEdit { ...props } />);
-        }
+	const injectControl = createHigherOrderComponent((BlockEdit) => {
+		return (props) => {
+			if ( ! affectedBlocks.includes(props.name)) {
+				return (<BlockEdit { ...props } />);
+			}
 
-        let defaults = {
-            tdEnabled: false,
-            tdDirection: tdOptions.direction[0],
-            tdColor: tdOptions.color[0],
-            tdLength: tdOptions.length[0]
-        };
+			const { setAttributes } = props;
 
-        //const { tdEnabled, tdExtColor, tdDirection, tdLength} = props.attributes;
-        const { setAttributes } = props;
+			function updateT3d(attributes) {
+				let newAttr = Object.assign({}, props.attributes, attributes);
+				setAttributes(newAttr);
+			}
 
-        // We may begin with classes set but 3d text isn't enabled
-        const className = props.attributes.className;
-        if (className && className.includes('t3d-') && ! props.tdEnabled) {
-            setAttributes({
-                tdEnabled: true
-            });
-        }
+			let icon = Icon();
+			icon.props.style = {width: "1.5em"};
 
-        function getClass(type) {
-            var regex = new RegExp(
-                `t3d\-${type}\-([a-z]+)`
-            )
-            if (className) {
-                let match = className.match(regex);
-                if (match && match.length) {
-                    return match[1];
-                }
-            }
-            return false;
-        }
+			return (
+				<Fragment>
+					<InspectorControls>
+						<PanelBody
+							title="3D Text"
+							icon={ icon }
+							initialOpen={ false }
+						>
+							<ToggleControl
+								label="Enable 3D Text"
+								checked={ props.attributes.t3dEnabled }
+								onChange={() => {
+									updateT3d({ t3dEnabled: ! props.attributes.t3dEnabled });
+								}}
+							/>
+							{props.attributes.t3dEnabled &&
+								<>
+									<ColorPalette
+										colors={wp.data.select( "core/editor" ).getEditorSettings().colors}
+										value={props.attributes.t3dCustomColor}
+										onChange={(value) => updateT3d({ t3dCustomColor: value })}
+									/>
+									<SelectControl
+										label="Extrude Direction"
+										value={props.attributes.t3dDirection}
+										onChange={(newDirection) => {
+											updateT3d({ t3dDirection: newDirection });
+										}}
+										options={t3dOptions.direction.map(function(val) {
+											return {
+												label: val.charAt(0).toUpperCase() + val.slice(1),
+												value: val
+											};
+										})}
+									/>
+									<SelectControl
+										label="Length"
+										help='Length correlates to type size.'
+										value={props.attributes.t3dLength}
+										onChange={(newLength) => {
+											updateT3d({ t3dLength: newLength });
+										}}
+										options={t3dOptions.length.map(function(val) {
+											return {
+												label: val.charAt(0).toUpperCase() + val.slice(1),
+												value: val
+											};
+										})}
+									/>
+								</>
+							}
+						</PanelBody>
+					</InspectorControls>
+					<BlockEdit { ...props } />
+				</Fragment>
+			)
+		}
+	}, 'injectControl');
+	addFilter(
+		'editor.BlockEdit',
+		'wwopn/t3d/blockedit',
+		injectControl
+	);
 
-        function getCurrent() {
-            let ret = defaults;
-            if (className && className.includes('t3d-')) {
-                ret.tdEnabled = true;
-                ret.tdColor = getClass('color');
-                ret.tdDirection = getClass('direction');
-                ret.tdLength = getClass('length');
-            }
-            return ret;
-        }
+	const displayControl = createHigherOrderComponent((BlockListBlock) => {
+		return (props) => {
+			if ( ! affectedBlocks.includes(props.name)) {
+				return (<BlockListBlock { ...props } />);
+			}
 
-        let tdColor = getClass('color');
-        let tdDirection = getClass('direction');
-        let tdLength = getClass('length');
+			const { setAttributes } = props;
+			const { t3dEnabled, t3dColor, t3dDirection, t3dLength, t3dCustomColor } = props.attributes;
 
-        if (tdColor) {
-            setAttributes({
-                tdColor: tdColor
-            });
-        }
-        if (tdDirection) {
-            setAttributes({
-                tdDirection: tdDirection
-            });
-        }
-        if (tdLength) {
-            setAttributes({
-                tdLength: tdLength
-            });
-        }
+			let wrapperProps = {};
+			let className = '';
 
-        function updateClass(update) {
-            let resolved = Object.assign(getCurrent(), update);
-            console.log('resolved', resolved);
-            let classes = props.attributes.className ?
-                props.attributes.className.split(' ') : [];
-            if (classes.length) {
-                classes = classes.filter( c => ! c.includes(`t3d-`) );
-            }
-            if (resolved.tdEnabled) {
-                classes.push(
-                    `t3d-color-${resolved.tdColor}`,
-                    `t3d-direction-${resolved.tdDirection}`,
-                    `t3d-length-${resolved.tdLength}`
-                );
-            }
-            setAttributes({
-                className: classes.join(' '),
-                tdEnabled: resolved.tdEnabled,
-                tdColor: resolved.tdColor,
-                tdDirection: resolved.tdDirection,
-                tdLength: resolved.tdLength
-            });
-        }
+			if (t3dEnabled) {
+				className = [
+					`t3d-direction-${t3dDirection}`,
+					`t3d-length-${t3dLength}`
+				].join(' ');
+				if (t3dCustomColor) {
+					wrapperProps.style = {
+						'--t3d-color': t3dCustomColor
+					};
+				}
+			}
 
-        return (
-            <Fragment>
-                <BlockEdit { ...props } />
-                <BlockControls>
-                    <Toolbar>
-                        <Button
-                            icon={<Icon style={{height: '1em'}} />}
-                            label="3D Text"
-                            onClick={() => {
-                                setAttributes({
-                                    popoverVisible: ! props.attributes.popoverVisible
-                                });
-                                updateClass();
-                            }}
-                        />
-                        {props.attributes.popoverVisible &&
-                            <Popover
-                                onFocusOutside={() => {
-                                    setAttributes({
-                                        popoverVisible: false
-                                    });
-                                }}
-                                focusOnMount="container"
-                            >
-                                <div style={{padding: '1em'}}>
-                                    <ToggleControl
-                                        label="Enable 3D Text"
-                                        checked={ props.attributes.tdEnabled }
-                                        onChange={() => {
-                                            updateClass({
-                                                tdEnabled: ! props.attributes.tdEnabled
-                                            });
-                                        }}
-                                    />
-                                    {props.attributes.tdEnabled &&
-                                        <div>
-                                            <SelectControl
-                                                label="Extrude Color"
-                                                value={props.attributes.tdColor}
-                                                onChange={(selectedColor) => {
-                                                    updateClass({
-                                                        tdColor: selectedColor
-                                                    });
-                                                }}
-                                                options={tdOptions.color.map(function(val) {
-                                                    return {
-                                                        label: val.charAt(0).toUpperCase() + val.slice(1),
-                                                        value: val
-                                                    };
-                                                })}
-                                            />
-                                            <SelectControl
-                                                label="Extrude Direction"
-                                                value={props.attributes.tdDirection}
-                                                onChange={(selectedDirection) => {
-                                                    updateClass({
-                                                        tdDirection: selectedDirection
-                                                    });
-                                                }}
-                                                options={tdOptions.direction.map(function(val) {
-                                                    return {
-                                                        label: val.charAt(0).toUpperCase() + val.slice(1),
-                                                        value: val
-                                                    };
-                                                })}
-                                            />
-                                            <SelectControl
-                                                label="Length"
-                                                value={props.attributes.tdLength}
-                                                onChange={(selectedLength) => {
-                                                    updateClass({
-                                                        tdLength: selectedLength
-                                                    });
-                                                }}
-                                                options={tdOptions.length.map(function(val) {
-                                                    return {
-                                                        label: val.charAt(0).toUpperCase() + val.slice(1),
-                                                        value: val
-                                                    };
-                                                })}
-                                            />
-                                        </div>
-                                    }
-                                </div>
-                            </Popover>
-                        }
-                    </Toolbar>
-                </BlockControls>
-            </Fragment>
-        )
-    }
-});
-addFilter(
-    'editor.BlockEdit',
-    'wwopn/blockedit/t3d',
-    withControl
-);
+			return (
+				<BlockListBlock { ...props } className={className} wrapperProps={wrapperProps} />
+			);
+		}
+	}, 'displayControl');
+	addFilter(
+		'editor.BlockListBlock',
+		'wwopn/t3d/blocklistblock',
+		displayControl
+	)
+
+
+	function saveStyles(props, blockType, attributes) {
+		if ( ! affectedBlocks.includes(blockType.name)) {
+			return props;
+		}
+		if (attributes.t3dEnabled) {
+			let newClasses = [
+				`t3d-direction-${attributes.t3dDirection}`,
+				`t3d-length-${attributes.t3dLength}`
+			].join(' ');
+			function applyClass(props) {
+				return Object.assign(props, {
+					className: newClasses
+				});
+			}
+			function applyStyle(style) {
+				if (typeof style !== 'object') {
+					style = {};
+				}
+				return Object.assign(style, {
+					'--t3d-color': attributes.t3dCustomColor
+				});
+			}
+			props = applyClass(props);
+			if (attributes.t3dCustomColor) {
+				props.style = applyStyle(props.style);
+			}
+			if (props.children) {
+				props.children = props.children.map(function(child) {
+					if (child.props) {
+						child.props = applyClass(child.props);
+						if (attributes.t3dCustomColor) {
+							child.props.style = applyStyle(child.props.style);
+						}
+					}
+					return child;
+				});
+			}
+		}
+		return props;
+	}
+	addFilter(
+		'blocks.getSaveContent.extraProps',
+		'wwopn/t3d/extraprops',
+		saveStyles
+	);
+
+}

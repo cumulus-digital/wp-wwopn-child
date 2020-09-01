@@ -41,7 +41,7 @@ array_walk($genres, function($genre){
 				<div class="row-container">
 					<article class="genre">
 						<header>
-							<h2 class="t3d-color-highlight t3d-direction-left t3d-length-medium">
+							<h2 class="t3d-color-brand t3d-direction-left t3d-length-short">
 								<a href="<?php echo $genre->link ?>" title="View all <?php echo \esc_attr($genre->name) ?>">
 									<?php echo \esc_html($genre->name) ?>
 								</a>
