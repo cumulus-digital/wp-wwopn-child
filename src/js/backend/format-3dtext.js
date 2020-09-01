@@ -178,7 +178,8 @@ if (wp && wp.blockEditor) {
 			function applyClass(props) {
 				let classes = newClasses;
 				if (props.className) {
-					classes += props.className + ' ' + classes
+					props.className = props.className.replace(/t3d\-[\-a-zA-Z]+/g,'');
+					classes = props.className + ' ' + classes
 				}
 				return Object.assign(props, {
 					className: classes
