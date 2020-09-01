@@ -42,6 +42,10 @@ if (wp && wp.blockEditor) {
 				type: 'string',
 				default: '#000000'
 			},
+			t3dStroke: {
+				type: 'boolean',
+				default: false
+			},
 		});
 		return settings;
 	}
@@ -116,6 +120,13 @@ if (wp && wp.blockEditor) {
 											};
 										})}
 									/>
+									<ToggleControl
+										label="Enable Stroke"
+										checked={ props.attributes.t3dStroke }
+										onChange={() => {
+											updateT3d({ t3dStroke: ! props.attributes.t3dStroke });
+										}}
+									/>
 								</>
 							}
 						</PanelBody>
@@ -138,7 +149,7 @@ if (wp && wp.blockEditor) {
 			}
 
 			const { setAttributes } = props;
-			const { t3dEnabled, t3dColor, t3dDirection, t3dLength, t3dCustomColor } = props.attributes;
+			const { t3dEnabled, t3dStroke, t3dDirection, t3dLength, t3dCustomColor } = props.attributes;
 
 			let wrapperProps = {};
 			let className = '';
@@ -147,7 +158,11 @@ if (wp && wp.blockEditor) {
 				className = [
 					`t3d-direction-${t3dDirection}`,
 					`t3d-length-${t3dLength}`
-				].join(' ');
+				];
+				if (t3dStroke) {
+					className.push('t3d-stroke');
+				};
+				className = className.join(' ');
 				if (t3dCustomColor) {
 					wrapperProps.style = {
 						'--t3d-color': t3dCustomColor
@@ -174,7 +189,11 @@ if (wp && wp.blockEditor) {
 			let newClasses = [
 				`t3d-direction-${attributes.t3dDirection}`,
 				`t3d-length-${attributes.t3dLength}`
-			].join(' ');
+			];
+			if (attributes.t3dStroke) {
+				newClassses.push('t3d-stroke');
+			}
+			newClasses = newClasses.join(' ');
 			function applyClass(props) {
 				let classes = newClasses;
 				if (props.className) {
