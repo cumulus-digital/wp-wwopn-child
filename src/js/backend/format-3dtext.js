@@ -166,7 +166,6 @@ if (wp && wp.blockEditor) {
 		displayControl
 	)
 
-
 	function saveStyles(props, blockType, attributes) {
 		if ( ! affectedBlocks.includes(blockType.name)) {
 			return props;
@@ -177,12 +176,16 @@ if (wp && wp.blockEditor) {
 				`t3d-length-${attributes.t3dLength}`
 			].join(' ');
 			function applyClass(props) {
+				let classes = newClasses;
+				if (props.className) {
+					classes += props.className + ' ' + classes
+				}
 				return Object.assign(props, {
-					className: newClasses
+					className: classes
 				});
 			}
 			function applyStyle(style) {
-				if (typeof style !== 'object') {
+				if ( ! style) {
 					style = {};
 				}
 				return Object.assign(style, {
