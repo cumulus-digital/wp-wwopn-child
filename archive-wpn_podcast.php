@@ -67,7 +67,7 @@ array_walk($genres, function($genre){
 				</div>
 			</div>
 		<?php endforeach ?>
-	</nav>
+	</section>
 <?php endif ?>
 
 <?php
