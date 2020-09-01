@@ -32,6 +32,48 @@ main.podcasts {
 }
 
 // Genre features on podcasts landing page
+.genre-links {
+	padding: 1em;
+
+	ul, li {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+	ul {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-between;
+		margin: 0 auto;
+		text-align: center;
+
+		@include phone {
+			display: block;
+		}
+	}
+	li {
+		margin: 0 .15em .3em;
+	}
+	a {
+		display: inline-block;
+		background-color: var(--#{$PARENT_PREFIX}-color-brand);
+		color: #fff;
+		border-radius: .2em;
+		padding: .75em 1.25em;
+		text-align: center;
+		text-decoration: none;
+		transition: all .15s;
+
+		@include hover {
+			background-color: var(--#{$PARENT_PREFIX}-color-highlight);
+			box-shadow: 0 .25em 0.4em rgba(0,0,0,0.3);
+			text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+			transform: scale(1.03);
+		}
+
+	}
+}
 .genre-features {
 	.row {
 		padding-top: 1em;
