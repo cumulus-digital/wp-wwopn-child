@@ -54,3 +54,14 @@
 .masthead .menu-container .menu {
 	font-size: 1.25rem;
 }
+
+.masthead .menu-beforetext a {
+	border-radius: .25em;
+	padding: .2em .4em;
+	transition: all .15s;
+
+	@include hover {
+		background-color: var(--#{$PARENT_PREFIX}-color-brand);
+		color: #fff;
+	}
+}
