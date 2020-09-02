@@ -46,3 +46,7 @@
 .masthead .menu {
 	box-shadow: .5rem .5rem var(--#{$PARENT_PREFIX}-color-brand);
 }
+
+.masthead .menu-container .menu {
+	font-size: 1.25rem;
+}
