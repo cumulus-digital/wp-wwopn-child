@@ -3,3 +3,7 @@
 @import 'podcasts/_';
 @import 'footer/_';
 @import '_extras';
+
+.wp-block-image img {
+    height: auto;
+}
