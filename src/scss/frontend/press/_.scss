@@ -3,6 +3,7 @@ body.slug-press {
         flex-direction: row;
 
         article {
+            background-color: var(--#{$PARENT_PREFIX}-color-content-background);
             width: 100%;
             margin: 0 0 .5em;
 
