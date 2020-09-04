@@ -8,6 +8,7 @@ body.slug-press {
             margin: 0 0 .5em;
 
             & > a {
+                background-color: var(--#{$PARENT_PREFIX}-color-content-background);
                 display: block;
             }
             header {
