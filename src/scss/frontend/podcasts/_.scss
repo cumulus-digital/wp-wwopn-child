@@ -54,7 +54,7 @@ main.podcasts {
 		margin: 0 .25em .5em;
 		text-align: center;
 		text-decoration: none;
-		transition: all .15s;
+		transition: all .1s;
 
 		@include hover {
 			background-color: var(--#{$PARENT_PREFIX}-color-highlight);
