@@ -30,4 +30,19 @@ body.slug-press {
             margin: 0 .5em .25em 0;
         }
     }
+    .wp-block-rss.cards {
+        li {
+            background-color: var(--#{$PARENT_PREFIX}-color-content-background);
+            border-radius: .25em;
+            box-shadow: 0 0 .75em rgba(0, 0, 0, 0.2);
+            padding: 1em;
+        }
+        .wp-block-rss__item-title {
+            font-weight: bold;
+        }
+        .wp-block-rss__item-excerpt {
+            font-size: .9em;
+            margin-top: .5em;
+        }
+    }
 }
