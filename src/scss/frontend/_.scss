@@ -9,9 +9,11 @@
     height: auto;
 }
 
-.background-size-auto-100 {
+.background-size-auto-100,
+.background-size-auto-100 .kt-row-layout-inner {
     background-size: auto 100%;
 }
-.background-size-100-auto {
+.background-size-100-auto,
+.background-size-100-auto .kt-row-layout-inner  {
     background-size: auto 100%;
 }
