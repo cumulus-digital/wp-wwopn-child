@@ -27,7 +27,13 @@ body.slug-press {
         .featured-image {
             float: left;
             width: 25%;
-            margin: 0 .5em .25em 0;
+            margin: 0 .5em 0 0;
+
+            & + header {
+                &, & + .body {
+                    padding-left: calc(25% + .5em);
+                }
+            }
         }
     }
     .wp-block-rss.cards {
