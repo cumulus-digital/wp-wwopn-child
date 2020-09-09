@@ -4,11 +4,15 @@
 	padding: 0;
 
 	a {
+		display: flex;
+		align-items: center;
+		justify-content: center;
 		position: relative;
 		z-index: 1;
-		padding: calc(var(--#{$PARENT_PREFIX}-masthead-height) * 0.2) 3.5em;
+		padding: 0 3.5em;
 
 		img {
+			height: 65%;
 			transition: all 0.1s;
 		}
 		@include hover {
