@@ -1,3 +1,10 @@
+.masthead .row-container {
+	grid-template-columns: calc(var(--cmls_base-masthead-height) * 2.6) auto max-content min-content;
+
+	@include phone() {
+		grid-template-columns: calc(var(--cmls_base-masthead-height) * 2.1) auto max-content min-content;
+	}
+}
 .masthead .logo {
 	position: relative;
 	overflow: hidden;
@@ -23,7 +30,7 @@
 		}
 
 		@include phone() {
-			padding-left: 1.5em;
+			padding-left: 2.5em;
 		}
 	}
 	// Trapezoid background for logo
