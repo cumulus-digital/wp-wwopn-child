@@ -36,3 +36,18 @@ function frontendScriptsAndStyles() {
 	}
 }
 \add_action('wp_enqueue_scripts', ns('frontendScriptsAndStyles'));
+
+// Do not add srcset if we specifically request full size images
+\add_filter('post_thumbnail_size', function($size) {
+     if(is_string($size) && 'full' === $size) {
+         \add_filter(
+             'wp_calculate_image_srcset_meta',
+              ns('__return_null_and_remove_current_filter')
+		 );
+	}
+    return $size;
+} );
+function __return_null_and_remove_current_filter ($var) {
+    \remove_filter(current_filter(), __FUNCTION__);
+    return null;
+}
