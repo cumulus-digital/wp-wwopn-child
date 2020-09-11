@@ -51,3 +51,13 @@ function __return_null_and_remove_current_filter ($var) {
     \remove_filter(current_filter(), __FUNCTION__);
     return null;
 }
+
+// Prefer podcasts in search
+// Allow restricting search results
+function searchOnlyPostTypes($query) {
+	if ($query->is_main_query() && $query->is_search) {
+		$query->set('orderby', array('post_type', 'date'));
+	}
+	return $query;
+}
+\add_filter('pre_get_posts', ns('searchOnlyPostTypes'));

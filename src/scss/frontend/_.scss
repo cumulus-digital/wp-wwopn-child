@@ -17,3 +17,26 @@
 .background-size-100-auto .kt-row-layout-inner  {
     background-size: auto 100% !important;
 }
+
+main.search {
+    article header::before {
+        display: block;
+        font-size: 0.5em;
+        opacity: 0.8;
+    }
+
+    article.type-wpn_podcast {
+        header::before {
+            content: 'PODCAST';
+        }
+        .meta { display: none; }
+    }
+    article.type-wpn_prs {
+        &.wpn_prs_type-release header::before {
+            content: 'PRESS RELEASE';
+        }
+        &.wpn_prs_type-news header::before {
+            content: 'IN THE NEWS';
+        }
+    }
+}
