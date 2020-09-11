@@ -52,12 +52,20 @@ function __return_null_and_remove_current_filter ($var) {
     return null;
 }
 
-// Prefer podcasts in search
-// Allow restricting search results
-function searchOnlyPostTypes($query) {
-	if ($query->is_main_query() && $query->is_search) {
-		$query->set('orderby', array('post_type' => 'asc', 'date' => 'desc'));
+// Order search results by post type
+function searchOnlyPostTypes($order = '') {
+	if (\is_main_query() && \is_search()) {
+		//$query->set('orderby', array('post_type' => 'asc', 'date' => 'desc'));
+		global $wpdb;
+		$neworder = 
+			"FIELD({$wpdb->posts}.post_type, 'page', 'wpn_podcast', 'wpn_prs')," .
+			"CASE 
+				WHEN {$wpdb->posts}.post_type='page' THEN {$wpdb->posts}.post_date
+				WHEN {$wpdb->posts}.post_type='wpn_prs' THEN {$wpdb->posts}.post_date
+			END DESC," .
+			"CASE WHEN {$wpdb->posts}.post_type='wpn_podcast' THEN {$wpdb->posts}.post_title END ASC";
+		return $neworder;
 	}
-	return $query;
+	return $order;
 }
-\add_filter('pre_get_posts', ns('searchOnlyPostTypes'));
+\add_filter('posts_orderby', ns('searchOnlyPostTypes'));
