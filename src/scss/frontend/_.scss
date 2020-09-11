@@ -25,6 +25,10 @@ main.search {
         opacity: 0.8;
     }
 
+    article.type-page {
+        .meta { display: none; }
+    }
+
     article.type-wpn_podcast {
         header::before {
             content: 'PODCAST';

@@ -56,7 +56,7 @@ function __return_null_and_remove_current_filter ($var) {
 // Allow restricting search results
 function searchOnlyPostTypes($query) {
 	if ($query->is_main_query() && $query->is_search) {
-		$query->set('orderby', array('post_type', 'date'));
+		$query->set('orderby', array('post_type' => 'asc', 'date' => 'desc'));
 	}
 	return $query;
 }
