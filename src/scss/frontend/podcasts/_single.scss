@@ -114,6 +114,8 @@
 			position: relative;
 			z-index: 2;
 
+			a { display: block; }
+
 			@include tablet {
 				flex-basis: 200px;
 				max-width: 200px;
