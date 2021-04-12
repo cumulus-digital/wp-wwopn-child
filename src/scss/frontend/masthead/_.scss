@@ -1,8 +1,8 @@
 .masthead .row-container {
-	grid-template-columns: calc(var(--cmls_base-masthead-height) * 2.6) auto max-content min-content;
+	grid-template-columns: max-content auto max-content min-content;
 
 	@include phone() {
-		grid-template-columns: calc(var(--cmls_base-masthead-height) * 2.1) auto max-content min-content;
+		grid-template-columns: auto;
 	}
 }
 .masthead .logo {
@@ -16,10 +16,11 @@
 		justify-content: center;
 		position: relative;
 		z-index: 1;
-		padding: 0 3.5rem;
+		padding: 0 2.75rem;
 
 		img {
 			height: 65%;
+			max-width: 100%;
 			transition: all 0.1s;
 		}
 		@include hover {
@@ -30,7 +31,7 @@
 		}
 
 		@include phone() {
-			padding-left: 2.5em;
+			padding-left: 1.75em;
 		}
 	}
 	// Trapezoid background for logo
