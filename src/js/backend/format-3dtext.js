@@ -190,13 +190,13 @@ if (wp && wp.blockEditor) {
 				`t3d-direction-${attributes.t3dDirection}`,
 				`t3d-length-${attributes.t3dLength}`
 			];
-			if (attributes.t3dStroke) {
+			if (attributes && attributes.t3dStroke) {
 				newClassses.push('t3d-stroke');
 			}
 			newClasses = newClasses.join(' ');
 			function applyClass(props) {
 				let classes = newClasses;
-				if (props.className) {
+				if (props && props.className) {
 					props.className = props.className.replace(/t3d\-[\-a-zA-Z]+/g,'');
 					classes = props.className + ' ' + classes
 				}
@@ -213,14 +213,14 @@ if (wp && wp.blockEditor) {
 				});
 			}
 			props = applyClass(props);
-			if (attributes.t3dCustomColor) {
+			if (attributes && attributes.t3dCustomColor) {
 				props.style = applyStyle(props.style);
 			}
-			if (props.children) {
-				props.children = props.children.map(function(child) {
-					if (child.props) {
+			if (props && props.children) {
+				React.Children.map(props.children, function(child) {
+					if (child && child.props) {
 						child.props = applyClass(child.props);
-						if (attributes.t3dCustomColor) {
+						if (attributes && attributes.t3dCustomColor) {
 							child.props.style = applyStyle(child.props.style);
 						}
 					}
