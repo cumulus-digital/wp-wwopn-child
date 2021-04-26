@@ -58,7 +58,7 @@ array_walk($genres, function($genre){
 							</a>
 						</header>
 						<div class="body">
-							<?php echo \do_shortcode('[podcasts-genre id=' . $genre->term_id . ']') ?>
+							<?php echo \do_shortcode('[podcasts-feature-genre id=' . $genre->term_id . ']') ?>
 						</div>
 					</article>
 				</div>
