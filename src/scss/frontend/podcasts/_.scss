@@ -124,7 +124,7 @@ main.podcasts {
 
 // in podcast genre features, hide the 5th item on mobile
 @include phone {
-    .wpn-f-genre li:nth-child(5) {
+    .wpn-f-genre:not(.wpn-f-genre-all) li:nth-child(5) {
         display: none;
     }
 }

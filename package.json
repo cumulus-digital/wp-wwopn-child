@@ -33,7 +33,7 @@
   },
   "homepage": "https://github.com/cumulus-digital/wp-wwopn-child#readme",
   "devDependencies": {
-    "@wordpress/scripts": "^14.1.0",
+    "@wordpress/scripts": "^14.1.1",
     "bourbon": "^7.0.0",
     "classlist-polyfill": "^1.2.0",
     "jquery": "^3.5.1",
