@@ -1,6 +1,6 @@
 {
   "name": "wp-wwopn-child",
-  "version": "1.0.0",
+  "version": "1.0.46",
   "description": "Child theme for WWOPN",
   "main": "index.js",
   "scripts": {
@@ -33,7 +33,7 @@
   },
   "homepage": "https://github.com/cumulus-digital/wp-wwopn-child#readme",
   "devDependencies": {
-    "@wordpress/scripts": "^14.1.1",
+    "@wordpress/scripts": "^16.1.2",
     "bourbon": "^7.0.0",
     "classlist-polyfill": "^1.2.0",
     "jquery": "^3.5.1",
