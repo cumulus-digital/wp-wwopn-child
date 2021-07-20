@@ -1,6 +1,6 @@
 {
   "name": "wp-wwopn-child",
-  "version": "1.0.48",
+  "version": "1.0.49",
   "description": "Child theme for WWOPN",
   "main": "index.js",
   "scripts": {
