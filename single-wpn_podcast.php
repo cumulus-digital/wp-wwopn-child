@@ -8,6 +8,8 @@ if (!defined('ABSPATH')) die('No direct access allowed');
 
 \get_header();
 
+$header_color = false;
+$header_3d_color = false;
 $header_image = array(
 	'id' => null,
 	'post' => null,
@@ -22,11 +24,13 @@ $social_links = array();
 $player_embed = null;
 
 if (\get_the_ID()) {
+	$header_color = \get_post_meta(\get_the_id(), '_wpn_podcast_meta_headercolor', true);
 	$header_image['id'] = \get_post_meta(\get_the_ID(), '_wpn_podcast_meta_headerimage', true);
 	if ($header_image['id']) {
 		$header_image['post'] = \get_post($header_image['id']);
 		$header_image['url'] = \wp_get_attachment_image_src($header_image['post']->ID, 'full')[0];
 	}
+	$header_3d_color = \get_post_meta(\get_the_id(), '_wpn_podcast_meta_header3dcolor', true);
 
 	$page_subtitle = \WWOPN_Podcast\CPT::getSubTitle();
 	$genres = \wp_get_post_terms(\get_the_ID(), 'wpn_podcast_genre');
@@ -62,16 +66,34 @@ if (\get_the_ID()) {
 					<?php \post_class(array('podcast')) ?>
 					itemscope itemtype="http://schema.org/RadioSeries"
 				>
-
-					<header 
+					<?php if ($header_color): ?>
+						<style>
+							article#podcast-<?php \the_ID() ?> header.page_title h1 {
+								--t3d-color: <?php echo \esc_html($header_color) ?>;
+							}
+							article#podcast-<?php \the_ID() ?> header.page_title {
+								background-color: <?php echo \esc_html($header_color) ?>;
+							}
+						</style>
+					<?php endif; ?>
+					<?php if ($header_3d_color): ?>
+						<style>
+							article#podcast-<?php \the_ID() ?> header.page_title h1 {
+								--t3d-color: <?php echo \esc_html($header_3d_color) ?>;
+							}
+						</style>
+					<?php endif; ?>
+					<header
 						class="
 							row
 							alignfull
 							page_title
+							<?php echo $header_color ? 'has_header_color' : '' ?>
 							<?php echo $header_image['url'] ? 'has_header_image' : '' ?>
 							<?php echo $page_subtitle ? 'has_subtitle' : '' ?>
 						"
 					>
+
 						<div class="header-bg-container">
 							<?php if ($header_image['url']): ?>
 								<img src="<?php echo $header_image['url'] ?>" alt="">
@@ -188,7 +210,7 @@ if (\get_the_ID()) {
 									</ul>
 								</aside>
 							<?php endif ?>
-							
+
 							<?php if ($tags): ?>
 								<aside class="tags">
 									<h5>Tags:</h5>

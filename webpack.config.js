@@ -23,7 +23,7 @@ defaultConfig.module.rules  = rules;
 
 module.exports = {
 	...defaultConfig,
-	resolve: { alias: { vue: 'vue/dist/vue.esm.js' } },
+	//resolve: { alias: { vue: 'vue/dist/vue.esm.js' } },
 	/*
 	externals: {
 		...defaultConfig.externals,
