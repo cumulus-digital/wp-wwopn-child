@@ -68,7 +68,8 @@ if (\get_the_ID()) {
 				>
 					<?php if ($header_color): ?>
 						<style>
-							article#podcast-<?php \the_ID() ?> header.page_title h1 {
+							article#podcast-<?php \the_ID() ?> header.page_title h1,
+							article#podcast-<?php \the_ID() ?> header.page_title h2 {
 								--t3d-color: <?php echo \esc_html($header_color) ?>;
 							}
 							article#podcast-<?php \the_ID() ?> header.page_title {
@@ -78,7 +79,8 @@ if (\get_the_ID()) {
 					<?php endif; ?>
 					<?php if ($header_3d_color): ?>
 						<style>
-							article#podcast-<?php \the_ID() ?> header.page_title h1 {
+							article#podcast-<?php \the_ID() ?> header.page_title h1,
+							article#podcast-<?php \the_ID() ?> header.page_title h2 {
 								--t3d-color: <?php echo \esc_html($header_3d_color) ?>;
 							}
 						</style>
