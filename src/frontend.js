@@ -21,7 +21,7 @@ window.additionalCssIncludes.push(
         });
 
         // .tgmp-onair class links can open TGMP's onair tray
-        $('body').click(function(e) {
+        $('body').on('click', function(e) {
             if (
                 window.tgmp &&
                 e.target.is('.tgmp_onair, .tgmp_onair a')
