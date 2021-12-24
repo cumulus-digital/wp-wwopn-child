@@ -1,5 +1,5 @@
 .single .podcast {
-	
+
 	header,
 	.social,
 	.storelinks {
@@ -14,7 +14,7 @@
 	}
 
 	header {
-		background-color: var(--#{$PARENT_PREFIX}-color-highlight);
+		background-color: var(--#{$PARENT_PREFIX}-color-brand);
 		color: #fff;
 		position: relative;
 		z-index: 1;
@@ -233,7 +233,7 @@
 		.description, .player_embed, .storelinks {
 			flex: 1 1 50%;
 			flex-basis: calc(50% - 2em);
-			
+
 			@include tablet {
 				flex-basis: 100%;
 				width: 100%;
@@ -349,7 +349,7 @@
 			a {
 				display: block;
 				text-decoration: none;
-				
+
 				@include hover {
 					img {
 						transform: scale(1.07);

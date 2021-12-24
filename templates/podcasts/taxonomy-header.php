@@ -11,7 +11,7 @@ if (!defined('ABSPATH')) die('No direct access allowed');
 <header class="row page_title taxonomy_header">
     <div class="row-container">
         <a href="/pods" class="backlink">Back <span>to the Pods</span></a>
-        <h1 class="t3d-color-brand t3d-direction-left t3d-length-medium">
+        <h1 class="t3d-color-lightgray t3d-direction-left t3d-length-medium">
             <?php if (\is_tax('wpn_podcast_tag')): ?>
                 <span>Tag:</span>
             <?php endif ?>
