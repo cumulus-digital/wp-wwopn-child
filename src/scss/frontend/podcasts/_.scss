@@ -11,7 +11,7 @@ main.podcasts {
 			border-radius: .25em;
 			padding: .25em .45em;
 			margin: 0 .15em .15em;
-			text-decoration: none;
+			text-decoration-line: none;
 			transition: all 0.15s;
 
 			@include hover {
@@ -53,7 +53,7 @@ main.podcasts {
 		padding: .75em 1.25em;
 		margin: 0 .25em .5em;
 		text-align: center;
-		text-decoration: none;
+		text-decoration-line: none;
 		transition: all .1s;
 
 		@include hover {
@@ -84,7 +84,7 @@ main.podcasts {
 
 			a {
 				color: #fff;
-				text-decoration: none;
+				text-decoration-line: none;
 
 				&.more {
 					display: inline-block;
