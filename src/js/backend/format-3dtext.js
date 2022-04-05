@@ -69,7 +69,7 @@ if (wp && wp.blockEditor) {
 			}
 
 			let icon = Icon();
-			icon.props.style = {width: "1.5em"};
+			//icon.props.style = {width: "1.5em"};
 
 			return (
 				<Fragment>
@@ -190,6 +190,37 @@ if (wp && wp.blockEditor) {
 				`t3d-direction-${attributes.t3dDirection}`,
 				`t3d-length-${attributes.t3dLength}`
 			];
+			let newProps = props;
+			if (attributes && attributes.t3dStroke) {
+				newClasses.push(
+					`t3d-stroke`
+				)
+			}
+			newProps = Object.assign(
+				newProps,
+				{
+					className: newClasses.join(' ')
+				}
+			);
+			if (attributes && attributes.t3dCustomColor) {
+				newProps = Object.assign(
+					newProps,
+					{
+						style: {
+							'--t3d-color': attributes.t3dCustomColor
+						}
+					}
+				);
+			}
+			return newProps;
+		}
+		//return Object.assign( props, { class: `t3d-direction-${attributes.t3dDirection}` } );
+		/*
+		if (attributes.t3dEnabled) {
+			let newClasses = [
+				`t3d-direction-${attributes.t3dDirection}`,
+				`t3d-length-${attributes.t3dLength}`
+			];
 			if (attributes && attributes.t3dStroke) {
 				newClassses.push('t3d-stroke');
 			}
@@ -228,6 +259,7 @@ if (wp && wp.blockEditor) {
 				});
 			}
 		}
+		*/
 		return props;
 	}
 	addFilter(
