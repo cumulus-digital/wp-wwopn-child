@@ -1,79 +1,86 @@
 .masthead .row-container {
-	grid-template-columns: max-content auto max-content min-content;
+  grid-template-columns: max-content auto max-content min-content;
 
-	@include phone() {
-		grid-template-columns: auto;
-	}
+  @include phone() {
+    grid-template-columns: auto;
+  }
 }
 .masthead .logo {
-	position: relative;
-	overflow: hidden;
-	padding: 0;
+  position: relative;
+  overflow: hidden;
+  padding: 0;
 
-	a {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		position: relative;
-		z-index: 1;
-		padding: 0 2.75rem;
+  a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+    padding: 0 2.75rem;
 
-		img {
-			height: 65%;
-			max-width: 100%;
-			transition: all 0.1s;
-		}
-		@include hover {
-			img {
-				transform: scale(1.04);
-				filter: drop-shadow(0 0 .5em rgba(0,0,0,0.6));
-			}
-		}
+    img {
+      height: 65%;
+      max-width: 100%;
+      transition: all 0.1s;
+    }
+    @include hover {
+      img {
+        transform: scale(1.04);
+        filter: drop-shadow(0 0 0.5em rgba(0, 0, 0, 0.6));
+      }
+    }
 
-		@include phone() {
-			padding-left: 1.75em;
-		}
-	}
-	// Trapezoid background for logo
-	&::before {
-		content: '';
-		position: absolute;
-		z-index: 0;
-		left: 0;
-		top: 0;
-		width: 100%;
-	
-		border-top: calc( var(--#{$PARENT_PREFIX}-masthead-height) + 2px ) solid var(--#{$PARENT_PREFIX}-color-brand);
-		border-left: calc( var(--#{$PARENT_PREFIX}-masthead-height) / 2 ) solid transparent;
-		border-right: calc( var(--#{$PARENT_PREFIX}-masthead-height) / 2 ) solid transparent;
-		height: 0;
+    @include phone() {
+      padding-left: 1.75em;
+    }
+  }
+  // Trapezoid background for logo
+  &::before {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    left: 0;
+    top: 0;
+    width: 100%;
 
-		@include phone() {
-			border-left: 0;
-		}
-	}
+    border-top: calc(var(--#{$PARENT_PREFIX}-masthead-height) + 2px) solid
+      var(--#{$PARENT_PREFIX}-color-brand);
+    border-left: calc(var(--#{$PARENT_PREFIX}-masthead-height) / 2) solid
+      transparent;
+    border-right: calc(var(--#{$PARENT_PREFIX}-masthead-height) / 2) solid
+      transparent;
+    height: 0;
+
+    @include phone() {
+      border-left: 0;
+    }
+  }
 }
 
 .hamburger::after,
 .masthead .menu {
-	box-shadow: .5rem .5rem var(--#{$PARENT_PREFIX}-color-brand);
+  box-shadow: 0.5rem 0.5rem var(--#{$PARENT_PREFIX}-color-brand);
 
-	@include tablet {
-		box-shadow: 0 .5rem var(--#{$PARENT_PREFIX}-color-brand);
-	}
+  @include tablet {
+    box-shadow: 0 0.5rem var(--#{$PARENT_PREFIX}-color-brand);
+  }
 }
 
 .masthead .menu-container .menu {
-	font-size: 1.25rem;
+  font-size: 1.25rem;
 }
 
 .masthead .menu-beforetext a {
-	border-radius: .25em;
-	padding: .2em .4em;
-	transition: all .15s;
+  border-radius: 0.25em;
+  padding: 0.2em 0.4em;
+  transition: all 0.15s;
 
-	@include hover {
-		background-color: var(--#{$PARENT_PREFIX}-color-brand);
-		color: #fff;
-	}
+  @include hover {
+    background-color: var(--#{$PARENT_PREFIX}-color-brand);
+    color: #fff;
+  }
+}
+
+.masthead .compact-form {
+  padding: 0.5em;
 }
