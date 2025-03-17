@@ -27,6 +27,10 @@ class CPT
     {
     }
     /** @return array */
+    public static function getStoreBadgeURL($type = null)
+    {
+    }
+    /** @return array */
     public static function getStoreLinks($pod_id = null)
     {
     }

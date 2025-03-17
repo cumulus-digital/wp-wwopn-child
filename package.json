@@ -34,11 +34,11 @@
   },
   "homepage": "https://github.com/cumulus-digital/wp-wwopn-child#readme",
   "devDependencies": {
-    "@wordpress/scripts": "^30.11.0",
+    "@wordpress/scripts": "^30.13.0",
     "classlist-polyfill": "^1.2.0",
     "jquery": "^3.7.1",
     "lodash": "^4.17.21",
-    "postcss-preset-env": "^10.1.4",
+    "postcss-preset-env": "^10.1.5",
     "sass": "^1.83.4"
   },
   "browserslist": [

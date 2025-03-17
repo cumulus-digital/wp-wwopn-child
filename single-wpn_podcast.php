@@ -3,17 +3,21 @@
  * WWOPN Child theme
  * Single WPN_PODCAST template
  */
+
 namespace WWOPN_Child;
-if (!defined('ABSPATH')) die('No direct access allowed');
+
+if (!defined('ABSPATH')) {
+    die('No direct access allowed');
+}
 
 \get_header();
 
 $header_color = false;
 $header_3d_color = false;
 $header_image = array(
-	'id' => null,
-	'post' => null,
-	'url' => null
+    'id' => null,
+    'post' => null,
+    'url' => null
 );
 $page_subtitle = null;
 $genres = null;
@@ -24,34 +28,34 @@ $social_links = array();
 $player_embed = null;
 
 if (\get_the_ID()) {
-	$header_color = \get_post_meta(\get_the_id(), '_wpn_podcast_meta_headercolor', true);
-	$header_image['id'] = \get_post_meta(\get_the_ID(), '_wpn_podcast_meta_headerimage', true);
-	if ($header_image['id']) {
-		$header_image['post'] = \get_post($header_image['id']);
-		$header_image['url'] = \wp_get_attachment_image_src($header_image['post']->ID, 'full')[0];
-	}
-	$header_3d_color = \get_post_meta(\get_the_id(), '_wpn_podcast_meta_header3dcolor', true);
+    $header_color = \get_post_meta(\get_the_id(), '_wpn_podcast_meta_headercolor', true);
+    $header_image['id'] = \get_post_meta(\get_the_ID(), '_wpn_podcast_meta_headerimage', true);
+    if ($header_image['id']) {
+        $header_image['post'] = \get_post($header_image['id']);
+        $header_image['url'] = \wp_get_attachment_image_src($header_image['post']->ID, 'full')[0];
+    }
+    $header_3d_color = \get_post_meta(\get_the_id(), '_wpn_podcast_meta_header3dcolor', true);
 
-	$page_subtitle = \WWOPN_Podcast\CPT::getSubTitle();
-	$genres = \wp_get_post_terms(\get_the_ID(), 'wpn_podcast_genre');
-	$tags = \wp_get_post_terms(\get_the_ID(), 'wpn_podcast_tag', array('fields' => 'all'));
-	if ($tags) {
-		$popular_tags = \wp_tag_cloud(array(
-			'taxonomy' => 'wpn_podcast_tag',
-			'format' => 'array',
-			'include'  => array_column($tags, 'term_id'),
-			'number' => 3,
-			'orderby' => 'count',
-			'order' => 'DESC',
-			'echo' => false,
-			'smallest' => 1,
-			'largest' => 1,
-			'unit' => 'em',
-		));
-	}
-	$store_links = \WWOPN_Podcast\CPT::getStoreLinks();
-	$social_links = \WWOPN_Podcast\CPT::getSocialLinks();
-	$player_embed = \WWOPN_Podcast\CPT::getPlayerEmbed();
+    $page_subtitle = \WWOPN_Podcast\CPT::getSubTitle();
+    $genres = \wp_get_post_terms(\get_the_ID(), 'wpn_podcast_genre');
+    $tags = \wp_get_post_terms(\get_the_ID(), 'wpn_podcast_tag', array('fields' => 'all'));
+    if ($tags) {
+        $popular_tags = \wp_tag_cloud(array(
+            'taxonomy' => 'wpn_podcast_tag',
+            'format' => 'array',
+            'include'  => array_column($tags, 'term_id'),
+            'number' => 3,
+            'orderby' => 'count',
+            'order' => 'DESC',
+            'echo' => false,
+            'smallest' => 1,
+            'largest' => 1,
+            'unit' => 'em',
+        ));
+    }
+    $store_links = \WWOPN_Podcast\CPT::getStoreLinks();
+    $social_links = \WWOPN_Podcast\CPT::getSocialLinks();
+    $player_embed = \WWOPN_Podcast\CPT::getPlayerEmbed();
 }
 ?>
 
@@ -113,7 +117,7 @@ if (\get_the_ID()) {
 								<div class="meta">
 									<div class="genres">
 										<?php if ($genres): ?>
-											<?php foreach($genres as $genre): ?>
+											<?php foreach ($genres as $genre): ?>
 												<a href="<?php echo \esc_url(\get_term_link($genre)) ?>" rel="tag" itemprop="genre" title="See more <?php echo \esc_attr($genre->name) ?> podcasts">
 													<?php echo \esc_html($genre->name) ?>
 												</a>
@@ -127,7 +131,7 @@ if (\get_the_ID()) {
 												itemprop="keywords"
 												content="<?php echo implode(', ', array_column($tags, 'name')) ?>"
 											>
-												<?php foreach($popular_tags as $tag): ?>
+												<?php foreach ($popular_tags as $tag): ?>
 													<li><?php echo $tag ?></li>
 												<?php endforeach ?>
 											</ul>
@@ -160,7 +164,7 @@ if (\get_the_ID()) {
 						<?php if ($store_links): ?>
 							<aside class="storelinks">
 								<ul>
-									<?php foreach($store_links as $store=>$storelink): ?>
+									<?php foreach ($store_links as $store => $storelink): ?>
 										<li class="<?php echo \esc_attr($store) ?>">
 											<a
 												href="<?php echo \esc_url($storelink) ?>"
@@ -171,8 +175,8 @@ if (\get_the_ID()) {
 												data-podcast-title="<?php \the_title_attribute() ?>"
 												data-store="<?php echo \esc_attr($store) ?>"
 											>
-												<?php if (get_static_asset('badges', $store, 'svg')): ?>
-													<img src="<?php echo get_static_asset('badges', $store, 'svg') ?>" alt="listen on <?php echo \esc_attr($store)?>">
+												<?php if (\WWOPN_Podcast\CPT::getStoreBadgeURL($store)): ?>
+													<img src="<?php echo \WWOPN_Podcast\CPT::getStoreBadgeURL($store) ?>" alt="listen on <?php echo \esc_attr($store)?>">
 												<?php else: ?>
 													listen on <?php echo \esc_html($store) ?>
 												<?php endif ?>
@@ -191,7 +195,7 @@ if (\get_the_ID()) {
 							<?php if ($social_links): ?>
 								<aside class="social">
 									<ul>
-										<?php foreach($social_links as $service=>$link): ?>
+										<?php foreach ($social_links as $service => $link): ?>
 											<li class="<?php echo \esc_attr($service) ?>">
 												<a
 													href="<?php echo \esc_url($link) ?>"
@@ -213,12 +217,14 @@ if (\get_the_ID()) {
 								<aside class="tags">
 									<h5>Tags:</h5>
 									<?php
-										\the_terms(
-											\get_the_ID(),
-											'wpn_podcast_tag',
-											'', '', ''
-										)
-									?>
+                                        \the_terms(
+                                            \get_the_ID(),
+                                            'wpn_podcast_tag',
+                                            '',
+                                            '',
+                                            ''
+                                        )
+							    ?>
 								</aside>
 							<?php endif ?>
 						</div>
